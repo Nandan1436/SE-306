@@ -1,67 +1,92 @@
-package IteratorOnCollection;
+package List;
 import java.util.List;
-import java.util.LinkedList;
-import java.util.ListIterator;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class ListTest {
-	private static final String colors[] = {"black","yellow","green","blue",
-			"violet","silver"};
-	private static final String colors2[] = {"gold","white","brown","blue",
-			"gray","silver"};
+	private static final int num[]= {1,8,4,11,0,2,1};
 	
 	public ListTest() {
-		List<String>list1 = new LinkedList<String>();
-		List<String>list2 = new LinkedList<String>();
-		
-		for(String color : colors) {
-			list1.add(color);
+		List<Integer>list=new ArrayList<Integer>();
+		for(int x : num) {
+			list.add(x);
 		}
+		System.out.println("Original list: ");
+		printList(list);
 		
-		for(String color : colors2) {
-			list2.add(color);
-		}
+		//Sort
+		Collections.sort(list);
+		System.out.println("Sorted list: ");
+		printList(list);
 		
-		list1.addAll(list2); //concatenate lists
-		list2=null; //release resources
-		printList(list1);
-		convertToUppercaseStrings(list1);
-		printList(list1);
+		//Binary Search
+		System.out.println("Finding 4 in the list: ");
+		int index=Collections.binarySearch(list,4);
+		System.out.printf("4 found at position %d\n",index);
+		System.out.println("Finding 5 in the list: ");
+		index=Collections.binarySearch(list, 5);
+		System.out.print(index);
+		System.out.println(" ,therefore not found.");
 		
-		System.out.print("\nDeleting elements 4 to 6...");
-		removeItems(list1,4,7);
-		printList(list1);
-		printReversedList(list1);
+		//Reverse
+		Collections.sort(list,Comparator.reverseOrder());
+		System.out.println("Reversed list: ");
+		printList(list);
+		
+		//Shuffle
+		Collections.shuffle(list);
+		System.out.println("Shuffled list: ");
+		printList(list);
+		
+		//Fill
+//		Collections.fill(list, 3);
+//		System.out.println("List after filled with 3: ");
+//		printList(list);
+		
+		//Find minimum
+		int minimum=Collections.min(list);
+		System.out.println("Minimum element in the list: "+minimum);
+		
+		//Find maximum
+		int maximum=Collections.max(list);
+		System.out.println("Maximum element in the list: "+maximum);
+		
+		//Find frequency
+		int freq=Collections.frequency(list, 1);
+		System.out.println("Frequency of 1 in the list: "+freq);
+		
+		//addAll
+		List<Integer>list2=new ArrayList<Integer>();
+		list2.add(20);
+		list2.add(30);
+		list2.add(40);
+		list.addAll(list2);
+		System.out.println("New list after appending another one to it: ");
+		printList(list);
+		
+		//Disjoint
+		List<Integer>list3=new ArrayList<Integer>();
+		list3.add(100);
+		list3.add(400);
+		List<Integer>list4=new ArrayList<Integer>(2);
+		list4.add(1);
+		list4.add(150);
+		System.out.println("is list1 and list3 disjoint: " + Collections.disjoint(list, list3));
+		System.out.println("is list1 and list4 disjoint: "+ Collections.disjoint(list, list4));
+		
+		//Copy
+		List<Integer>copyList=new ArrayList<Integer>(20);
+		copyList.add(1);
+		copyList.add(2);
+		Collections.copy(copyList,list4);
+		System.out.println("Copied list: ");
+		printList(copyList);
 		
 	}
 	
-	public void printList(List<String>list) {
-		System.out.println("\nList: ");
-		for(String color: list) {
-			System.out.printf("%s ",color);
-		}
-		System.out.println();
+	void printList(List<Integer> list) {
+		System.out.println(list);
 	}
 	
-	public void convertToUppercaseStrings(List<String>list) {
-		ListIterator<String>iterator = list.listIterator();
-		
-		while(iterator.hasNext()) {
-			String color = iterator.next();
-			iterator.set(color.toUpperCase());
-		}
-	}
-	
-	//Remember indexing starts from zero
-	public void removeItems(List<String>list,int start,int end) {
-		list.subList(start-1, end-1).clear(); //remove items.
-	}
-	
-	public void printReversedList(List<String>list) {
-		ListIterator<String>iterator = list.listIterator(list.size());
-		
-		System.out.println("\nReversed List: ");
-		while(iterator.hasPrevious()) {
-			System.out.printf("%s ",iterator.previous());
-		}
-	}
 }
