@@ -1,8 +1,8 @@
 package StackImplementation;
 
 public class StackTest {
-	private double[] doubleElements = {1.1,2.2,3.3,4.4,5.5,6.6};
-	private int[] integerElements = {1,2,3,4,5,6,7,8,9,10,11};
+	private Double[] doubleElements = { 1.1, 2.2, 3.3, 4.4, 5.5, 6.6 };
+	private Integer[] integerElements = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
 	
 	private Stack< Double > doubleStack;
 	private Stack< Integer > integerStack;
